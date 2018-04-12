@@ -15,21 +15,21 @@ class User:
 class Tutor(User):
     '''Represents a tutor'''
     def __init__(self, name, age):
-        SchoolMember.__init__(self, name, age)
+        User.__init__(self, name, age)
         print('(Initialized Teacher: {})'.format(self.name))
 
-    def tell(self):
-        SchoolMember.tell(self)
+    def toString(self):
+        User.toString(self)
 
 
 class Student(User):
     '''Represents a student.'''
     def __init__(self, name, age):
-        SchoolMember.__init__(self, name, age)
+        User.__init__(self, name, age)
         print('(Initialized Student: {})'.format(self.name))
 
-    def tell(self):
-        SchoolMember.tell(self)
+    def toString(self):
+        User.toString(self)
 
 
 class Course:
@@ -38,6 +38,9 @@ class Course:
         self.name = name
         self.avSession = avSession
         print('(Initialized Course: {})'.format(self.name))
+
+    def toString(self):
+        print('Name:"{}" Sessions Available:"{}"'.format(self.name, self.avSession), end=" ")
 
 
 class Session:
