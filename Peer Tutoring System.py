@@ -1,11 +1,18 @@
 import random
+import sql
+import Connector
+
+
 
 class User:
     '''Represents a system user'''
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, fname, lname):
+        self.fname = fname
+        self.lname = lname
+        self.name= self.fname +" "+ self.lname
         self.bio = ''
         self.strike=0
+        Connector.insert_name(self.fname,self.lname)
         print('(Initialized User: {})'.format(self.name))
 
 
@@ -19,8 +26,8 @@ class User:
 
 class Tutor(User):
     '''Represents a tutor'''
-    def __init__(self, name):
-        User.__init__(self, name)
+    def __init__(self, fname, lname):
+        User.__init__(self, fname, lname)
         print('(Initialized Teacher: {})'.format(self.name))
 
     def toString(self):
@@ -31,8 +38,8 @@ class Tutor(User):
 
 class Student(User):
     '''Represents a student.'''
-    def __init__(self, name):
-        User.__init__(self, name)
+    def __init__(self, fname, lname):
+        User.__init__(self, fname, lname)
         print('(Initialized Student: {})'.format(self.name))
 
     def toString(self):
@@ -43,13 +50,14 @@ class Student(User):
 
 
 class Course:
-    def __init__(self, name, avSession):
+    def __init__(self, name, code):
         self.name = name
-        self.avSession = avSession
+        self.code = code
+        Connector.insert_course(self.name,self.code)
         print('(Initialized Course: {})'.format(self.name))
 
     def toString(self):
-        print('Name:"{}" Sessions Available:"{}"'.format(self.name, self.avSession), end=" ")
+        print('Name:"{}" Code:"{}"'.format(self.name, self.code), end=" ")
 
 
 class Session:
@@ -92,4 +100,7 @@ class TimetableBridge:
         self.content.append(newSess)
         print(self.content)
 
+class AdminUser():
+    def addCourse(name, code):
+        Course(name, code)
 
