@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import sql
 import mysql.connector
 from mysql.connector import Error
@@ -44,6 +45,29 @@ def insert_name(fname, lname):
         cursor.close()
         conn.close()
 
+def display_name():
+    query = "SELECT * FROM user;"
+    #args = (fname, lname)
+ 
+    try:
+        conn = mysql.connector.connect(host='localhost',
+                                       database='pts',
+                                       user='root',
+                                       password='root7749')
+        if conn.is_connected():
+            print('Connected to MySQL database')
+ 
+        cursor = conn.cursor()
+        cursor.execute(query)
+ 
+        conn.commit()
+    except Error as error:
+        print(error)
+ 
+    finally:
+        cursor.close()
+        conn.close()
+
 def insert_course(name, code):
     query = "INSERT INTO course(name,code) " \
             "VALUES(%s,%s)"
@@ -67,8 +91,50 @@ def insert_course(name, code):
     finally:
         cursor.close()
         conn.close()
-#def main():
- #  insert_name('Anna','Jones')
+
+def delete_course(code):
+    query = "DELETE FROM course WHERE code = ' ' "
+    args = code
  
-#if __name__ == '__main__':
- #   insert_name(fname,lname)
+    try:
+        conn = mysql.connector.connect(host='localhost',
+                                       database='pts',
+                                       user='root',
+                                       password='root7749')
+        if conn.is_connected():
+            print('Connected to MySQL database')
+ 
+        cursor = conn.cursor()
+        cursor.execute(query, args)
+ 
+        conn.commit()
+    except Error as error:
+        print(error)
+ 
+    finally:
+        cursor.close()
+        conn.close()
+
+def insert_session(course, time, place,tutor, student, status):
+    query = "INSERT INTO session(course, time, place,tutor, student, status) " \
+            "VALUES(%s,%s, %s,%s, %s,%s)"
+    args = (course, time, place,tutor, student,status)
+ 
+    try:
+        conn = mysql.connector.connect(host='localhost',
+                                       database='pts',
+                                       user='root',
+                                       password='root7749')
+        if conn.is_connected():
+            print('Connected to MySQL database')
+ 
+        cursor = conn.cursor()
+        cursor.execute(query, args)
+ 
+        conn.commit()
+    except Error as error:
+        print(error)
+ 
+    finally:
+        cursor.close()
+        conn.close()
